@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Crypto</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/assets/back.jfif') no-repeat;
+            background-size: cover;
+            background-repeat:no-repeat;
+            background-position: center center;
+            overflow: auto;
+        }
+        .left {
+            text-align: center;
+            width: 30%;
+            height: 45%;
+        }
+        .right {
+            width: 100%;
+            height: 90%;
+            border-radius: 20px;
+            border: none;
+        }
+        canvas {
+            border: 1px solid #000;
+            width: 100%;
+            height: 400px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Mobile version -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+  </head>
+<body class="noselect">
+
+<div class="left" >
+    
+    
+        <h1 style="font-size: 100px;">$</h1>
+
+    <div  class="message-in" id="left" style="color: black; background-color: aqua;">
+        
+        <script>
+            var newLink = document.createElement("a");
+            newLink.textContent = "Сheck:" + localStorage.getItem("buld");
+            newLink.id = "real";
+            // Добавление элемента в конец страницы
+            document.getElementById("left").appendChild(newLink);
+        </script>
+    </div>
+    <header class="site-header" style="background-color: blue;">
+        <div class="site-identity">
+            <h1><a href="../index.html">Main</a></h1>
+        </div>  
+        <nav class="site-navigation">
+            <section id="content">
+                <ul class="nav">
+                <li><button onclick="trade('buy')">Buy</button></li> 
+                <li><button onclick="trade('sell')">sell</button></li> 
+                </ul>
+            </section>
+        </nav>
+    </header>
+</div>
+<main>
+    <div class="right">
+        <canvas id="chart" style="border: none;"></canvas>
+    </div>
+</main>
+
+<script>
+        const canvas = document.getElementById('chart');
+        const ctx = canvas.getContext('2d');
+        const values = [];
+        let maxValue = 10;
+        let minValue = 0;
+        let num = 0;
+
+        
+        function drawChart() {
+            // Очищаем canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Рисуем линии графика
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height - values[0]); // Начинаем от первого значения внизу
+            
+            for (let i = 1; i < values.length; i++) {
+                let x = (i / (values.length - 1)) * canvas.width;
+                let y = canvas.height - values[i]; // Инвертируем Y для правильного отображения
+                ctx.lineTo(x, y);
+            }
+            
+            // Настраиваем стиль и рисуем линию
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Отображение текущих значений
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            num = values[values.length - 1];
+            ctx.fillText(`Out: ${num}`, 20, 30);
+            let currentBuld = parseFloat(localStorage.getItem("buld")) || 0;
+
+            // Суммируем текущее значение с новым значением num
+            let newBuld = currentBuld + num;
+
+            // Сохраняем новое значение обратно в localStorage
+            localStorage.setItem("buld", newBuld);
+            document.getElementById("real").innerHTML = "Сheck:" + localStorage.getItem("buld");
+        }
+
+        function trade(action) {
+            // Генерация случайного значения
+            const randomChange = Math.floor(Math.random() * 21) - 10; // Случайное число от -10 до 10
+            let currentValue = (values.length > 0 ? values[values.length - 1] : 0) + randomChange;
+            
+            // Обновляем minValue и maxValue
+            if (currentValue > maxValue) maxValue = currentValue;
+            if (currentValue < minValue) minValue = currentValue;
+
+            // Добавляем новое значение в массив
+            values.push(currentValue);
+            drawChart();
+        }
+
+        // Инициализируем график
+        trade('start');
+</script>
+
+</body>
+</html>
