@@ -1,1 +1,263 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Config</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .new-page {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                height: 80%;
+                background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+                border: 1px solid #ccc;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                display: none; /* Скрываем элемент по умолчанию */
+                padding: 20px;
+                z-index: 1000; /* Обеспечиваем, чтобы элемент был поверх остальных */
+            }
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Фон затемнения */
+                display: none; /* Скрываем затемнение по умолчанию */
+                z-index: 999; /* Под элементом нового окна */
+            }
+        </style>
+
+        <title>Config</title>
+        <script src="gj-js-api.js"></script>
+
+    </head>
+
+    <body>
+        <div class="overlay" id="overlay"></div>
+        <div class="new-page" id="newPage">
+            <h2>Config</h2>
+            <p id="con"></p>
+
+            <button id="closeBtn">Esc</button>
+        </div>
+        
+        <script>
+            // Показываем затемнение и новое окно
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('newPage').style.display = 'block';
+        
+            document.getElementById('closeBtn').addEventListener('click', function() {
+                // Скрываем затемнение и новое окно
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('newPage').style.display = 'none';
+                window.location.href = '../index.html';
+            });
+        </script>
+        <script>
+
+            const pBody = document.getElementById('con');
+
+            pBody.innerHTML += "Test-ID: 865420" + "<br>";
+            pBody.innerHTML += "Test-Key: bfe8f5d859ee1daaff9d24bb57b207d0" + "<br>";
+
+            // ****************************************************************
+            // LOGIN
+            if(GJAPI.bLoggedIn)
+            {
+                const sSaveUserName  = GJAPI.sUserName;
+                const sSaveUserToken = GJAPI.sUserToken;
+
+                GJAPI.UserLogout();
+                GJAPI.UserLoginManual(sSaveUserName, sSaveUserToken,
+                function(pResponse)
+                {
+                    pBody.innerHTML += "[LOGIN] " + ("User " + sSaveUserName + " logged in") + "<br>";
+
+                    // ****************************************************************
+                    // TROPHY
+                    const nTrophyFetchCallback = 
+                    function(pResponse)
+                    {
+                        pBody.innerHTML += "[TROPHY] " + ("Trophy " + pResponse.trophies[0].title + " (ID " + pResponse.trophies[0].id + ") fetched") + "<br>";
+                        pBody.innerHTML += "[TROPHY] " + ("<img src='" + pResponse.trophies[0].image_url + "'>") + "<br>";
+                    };
+
+                    GJAPI.TrophyAchieve(6506,
+                    function(pResponse)
+                    {
+                        pBody.innerHTML += "[TROPHY] " + ("Achieved: " + pResponse.message) + "<br>";
+
+                        GJAPI.TrophyRemove(6506,
+                        function(pResponse)
+                        {
+                            pBody.innerHTML += "[TROPHY] " + ("Removed: " + pResponse.message) + "<br>";
+                        });
+                    });
+                    GJAPI.TrophyFetch      (GJAPI.TROPHY_ALL, nTrophyFetchCallback);
+                    GJAPI.TrophyFetchSingle(6506,             nTrophyFetchCallback);
+
+                    // ****************************************************************
+                    // SCORE
+                    const iNewScore = Math.floor(Math.random() * 10000);
+
+                    GJAPI.ScoreAdd(0, iNewScore, iNewScore + " Potatoes", null,
+                    function(pResponse)
+                    {
+                        pBody.innerHTML += "[SCORE] " + ("User Score sent") + "<br>";
+
+                        GJAPI.ScoreAddGuest(0, iNewScore, iNewScore + " Potatoes", "Horsti", null,
+                        function(pResponse)
+                        {
+                            pBody.innerHTML += "[SCORE] " + ("Guest Score sent") + "<br>";
+
+                            const nScoreFetchCallback =
+                            function(pResponse, sString)
+                            {
+                                for(let i = 0; i < pResponse.scores.length; ++i)
+                                {
+                                    const pScore = pResponse.scores[i];
+                                    pBody.innerHTML += "[SCORE] " + (sString + (i + 1) + ". " + (pScore.user ? pScore.user : pScore.guest) + " - " + pScore.score) + "<br>";
+                                }
+                            };
+
+                            GJAPI.ScoreFetch(0, GJAPI.SCORE_ALL, 10,
+                            function(pResponse)
+                            {
+                                nScoreFetchCallback(pResponse, "Fetched: ")
+                            });
+
+                            GJAPI.ScoreFetchGuest(0, "Horsti", 10,
+                            function(pResponse)
+                            {
+                                nScoreFetchCallback(pResponse, "Fetched (guest): ")
+                            });
+
+                            GJAPI.ScoreFetchEx(0, GJAPI.SCORE_ALL, 10, GJAPI.BETTER_THAN, 5000,
+                            function(pResponse)
+                            {
+                                nScoreFetchCallback(pResponse, "Fetched (better than 5000): ")
+                            });
+
+                            GJAPI.ScoreFetchEx(0, GJAPI.SCORE_ALL, 10, GJAPI.WORSE_THAN, 5000,
+                            function(pResponse)
+                            {
+                                nScoreFetchCallback(pResponse, "Fetched (worst than 5000): ")
+                            });
+
+                            GJAPI.ScoreFetchGuestEx(0, "Horsti", 10, GJAPI.BETTER_THAN, 5000,
+                            function(pResponse)
+                            {
+                                nScoreFetchCallback(pResponse, "Fetched (better than 5000, guest): ")
+                            });
+                        });
+
+                        GJAPI.ScoreGetRank(0, iNewScore,
+                        function(pResponse)
+                        {
+                            pBody.innerHTML += "[SCORE] " + ("Rank for score " + iNewScore + ": " + pResponse.rank) + "<br>";
+                        });
+
+                        GJAPI.ScoreGetTables(
+                        function(pResponse)
+                        {
+                            for(let i = 0; i < pResponse.tables.length; ++i)
+                            {
+                                const pTable = pResponse.tables[i];
+                                pBody.innerHTML += "[SCORE] " + ("Table " + (i + 1) + ": " + pTable.name + " (ID " + pTable.id + ")") + "<br>";
+                            }
+                        });
+                    });
+
+                    // ****************************************************************
+                    // FRIENDS
+                    GJAPI.FriendsFetch(function(pResponse)
+                    {
+                        for(let i = 0; (i < pResponse.friends.length) && (i < 5); ++i)
+                        {
+                            GJAPI.UserFetchID(pResponse.friends[i].friend_id,
+                            function(pResponse)
+                            {
+                                pBody.innerHTML += "[FRIENDS] " + "Friend " + (i + 1) + ": " + pResponse.users[0].username + "<br>";
+                            });
+                        }
+                    });
+                });
+            }
+            else pBody.innerHTML += "No User Credentials in URL (add ?gjapi_username=####&gjapi_token=####)" + "<br>";
+
+            // ****************************************************************
+            // USER
+            const nUserFetchCallback =
+            function(pResponse)
+            {
+                pBody.innerHTML += "[USER] " + ("User " + pResponse.users[0].username + " (ID " + pResponse.users[0].id + ") fetched") + "<br>";
+                pBody.innerHTML += "[USER] " + ("<img src='" + pResponse.users[0].avatar_url + "'>") + "<br>";
+            };
+
+            GJAPI.UserFetchID  (1,     nUserFetchCallback);
+            GJAPI.UserFetchName("Nik", nUserFetchCallback);
+
+            // ****************************************************************
+            // DATA STORE
+            GJAPI.DataStoreSet(GJAPI.DATA_STORE_GLOBAL, "MyData", "1234",
+            function(pResponse)
+            {
+                pBody.innerHTML += "[DATA STORE] " + ("Data set") + "<br>";
+
+                GJAPI.DataStoreFetch(GJAPI.DATA_STORE_GLOBAL, "MyData",
+                function(pResponse)
+                {
+                    pBody.innerHTML += "[DATA STORE] " + ("Data fetched: " + pResponse.success + " " + pResponse.data) + "<br>";
+
+                    GJAPI.DataStoreUpdate(GJAPI.DATA_STORE_GLOBAL, "MyData", "add", "2",
+                    function(pResponse)
+                    {
+                        pBody.innerHTML += "[DATA STORE] " + ("Data updated +2") + "<br>";
+
+                        GJAPI.DataStoreFetch(GJAPI.DATA_STORE_GLOBAL, "MyData",
+                        function(pResponse)
+                        {
+                            pBody.innerHTML += "[DATA STORE] " + ("Data fetched again: " + pResponse.success + " " + pResponse.data) + "<br>";
+
+                            GJAPI.DataStoreGetKeys(GJAPI.DATA_STORE_GLOBAL, 
+                            function(pResponse)
+                            {
+                                pBody.innerHTML += "[DATA STORE] " + ("Data Store Keys fetched: " + pResponse.keys.length) + "<br>";
+
+                                GJAPI.DataStoreRemove(GJAPI.DATA_STORE_GLOBAL, "MyData",
+                                function(pResponse)
+                                {
+                                    pBody.innerHTML += "[DATA STORE] " + ("Data removed") + "<br>";
+
+                                    GJAPI.DataStoreGetKeys(GJAPI.DATA_STORE_GLOBAL, 
+                                    function(pResponse)
+                                    {
+                                        pBody.innerHTML += "[DATA STORE] " + ("Data Store Keys fetched: " + pResponse.keys.length) + "<br>";
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            // ****************************************************************
+            // TIME
+            GJAPI.TimeFetch(function(pResponse)
+            {
+                pBody.innerHTML += "[TIME] " + pResponse.year + "-" + pResponse.month + "-" + pResponse.day + " " + pResponse.hour + ":" + pResponse.minute + "." + pResponse.second + " " + pResponse.timezone + "<br>";
+            });
+
+        </script>
+
+    </body>
+
+</html>
