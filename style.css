@@ -1,0 +1,506 @@
+/*Web*/
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  
+  transition: all .5s;
+}
+body{background: #f0f2f5; text-align: center; align-items: center; align-content: center;}
+
+
+/*Cookie#1*/
+.cookie1{
+  opacity: 0.9;
+  background: #8ab8e6;
+  border-radius: 5px;
+  
+  width: 100%;
+  height: 90%;
+  
+  margin: 0 auto;
+  padding: 5px;
+  
+  color: #141a1f;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column; /* Вертикальная ориентация */
+}
+.cookie1:hover{
+  border-radius: 10px;
+  
+  width: 90%;
+  
+  margin: 1 auto;
+  padding: 15px;
+  
+  color: #d1d9e1;
+}
+
+
+.cookie1 h1{text-align: center;}
+
+#scoreTxt1{
+  font-size: 20px;
+}
+#scoreTxt1:hover{
+  font-size: 25px;
+  cursor: default;
+}
+
+  /*Rows#1*/
+.rows1{display: flex;}
+
+  /*Items#1*/
+.items{
+  background: #93a6b8;
+  border-radius: 5px;
+  
+  max-width: 40%;
+  max-height: 40%;
+
+  margin: 5px;
+  padding: 5px;
+  
+  color: #32404d;
+  text-align: center;
+}
+.items:hover{
+  background: #32404d;
+  border-radius: 10px;
+  
+  margin: 10px;
+  padding: 10px;
+  
+  color: #93a6b8;
+}
+
+img {
+  max-width: 20%;
+  max-height: 20%;
+}
+
+/*Btns#1*/
+.btns1{
+  background: #c1ccd7;
+  border-radius: 5px;
+  
+  margin: 0 auto;
+  padding: 5px;
+}
+.btns1:hover{
+  border-radius: 10px;
+  
+  margin: 1 auto;
+  padding: 10px;
+  
+}
+
+button{
+  border: none;
+  outline: none;
+  appearance: none;
+}
+
+.btn{
+  background: #b2c0cd;
+  border-radius: 5px;
+  
+  margin: 5px;
+  padding: 5px;
+  
+  color: #1e272e;
+}
+.btn:hover{
+  background: #1e272e;
+  border-radius: 10px;
+  
+  margin: 10px;
+  padding: 10px;
+  
+  color: #b2c0cd;
+  cursor: pointer;
+}
+
+
+.btn:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+aside,figcaption,figure,footer,header,nav,section {
+  display: block;
+}
+
+body {
+  margin: 0;
+  transition: background-color 0.5s, color 0.5s;
+  transition: 0.3s;
+  transition-duration: 0.2s;
+  text-decoration:none;
+  
+  overflow: scroll;
+  overflow-y: auto;
+}
+
+a { text-decoration: none; }
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+.switch {
+  align-items: center; 
+  align-content: center;
+  top: auto;
+  left: auto;
+  display: block;
+  width: 60px;
+  height: 120px;
+  background-color: #ccc;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  left: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-indent: -9999px;
+
+  box-shadow: 0 4px #666;
+  margin-bottom: 20px;
+
+}
+
+body {
+  display: flex;
+  height: 100%; /* Высота на весь экран */
+  width: 100%;
+  background-color: black;
+  filter: blur(0.1px);
+  filter: opacity(0.8);
+  background-color: rgba(228, 221, 216, 0.952);
+  background-size: 100% 100%;
+
+  vertical-align: baseline;
+
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  transform-style: preserve-3d;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 0.2s linear;
+}
+
+.noselect, img {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+
+.switch::before {
+  border-radius: 25px; /* Круглая кнопка */
+  position: absolute;
+  top: 10px; /* Отступ сверху */
+  left: 5px; /* Центровка кнопки */
+  transition: transform 0.3s; /* Плавный переход */
+  
+}
+
+.switch.on::before {
+  transform: translateX(25px); /* Перемещение кнопки при включении */
+}
+
+div.color-box {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+  transition: background-color 0.5s; /* Плавный переход цвета */
+  
+  margin-bottom: 6px;
+
+  position: relative;
+
+  scroll-behavior: auto;
+  vertical-align: top;
+
+  overflow: hidden;
+
+  user-select: none; /* Для предотвращения выделения текста */
+  scroll-behavior: smooth; /* Плавная прокрутка */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 204, 255); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #14ffe0; 
+}
+
+.toggle {
+  width: 100%;
+  height: 50%;
+  background-color: #4caf50;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 0;
+  transition: bottom 0.5s;
+  
+}
+
+body.light .toggle {
+  bottom: 0;
+}
+
+body.dark .btn {
+  background-color: plum;
+}
+
+body.dark h1 {
+  background-color: rgb(216, 100, 216);
+}
+
+body.dark .toggle {
+  bottom: 50%;
+  background-color: pink;
+
+}
+
+body.dark .cookie1{
+  background: black;
+}
+
+h1 {
+  position: sticky;
+  top: 21px;
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+.emoji {
+  position: absolute;
+  font-size: 24px;
+  animation: fall 3s linear;
+  z-index: -9999;
+
+  transform: translateY(170px);
+  transition-duration: 0.4s;
+}
+
+@keyframes fall {
+  0% {
+      top: -50px;
+  }
+  100% {
+      top: 100vh;
+  }
+}
+
+
+
+/* Switch audio */
+body {
+  overflow: hidden;
+  gap: 0.25em;
+}
+
+.point {
+  appearance: none;
+  position: relative;
+  font-size: 1em;
+
+  border: max(1px, 0.05em) solid;
+  border-radius: 20% / 100%; 2em;
+  
+  &::before {
+    content: "";
+    width: 0.7em;
+    height: 0.7em;
+    position: absolute;
+    background: 
+      linear-gradient(currentcolor 0 0) 10% 50% / 35% 45%,
+      conic-gradient(at -75% 50%, #0000 62deg, currentcolor 0 118deg, #0000 0) 100% 50% / 55% 100%
+      ;
+    background-repeat: no-repeat;
+    outline: 1px solid #0000;
+    aborder-radius: 50% / 50% 100% 100% 50%;
+    top: 50%;
+    left: 0.5em;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s;
+  }
+  
+  &::after {
+    content: "";
+    width: 0.7em;
+    height: 0.7em;
+    position: absolute;
+    background: 
+      radial-gradient(50% 70% at -10% 50%, #0000 80%, #000 0 99%, #0000) 50% 50% / 50% 50%,
+      radial-gradient(50% 70% at -10% 50%, #0000 80%, #000 0 99%, #0000) 75% 50% / 50% 60%,
+      radial-gradient(50% 70% at -10% 50%, #0000 80%, #000 0 99%, #0000) 100% 50% / 50% 70%
+      ;
+    background-repeat: no-repeat;
+    outline: 1px solid #0000;
+    border-radius: 50% / 50% 100% 100% 50%;
+    top: 50%;
+    left: 0.5em;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: left 0.5s, opacity 0.5s;
+  }
+  
+  &:checked {
+    &::before {
+      left: calc(100% - 0.85em);
+    }
+    
+    &::after {
+      left: calc(100% - 0.3em);
+      opacity: 1;
+    }
+  }
+  
+  &[disabled] {
+    opacity: 0.25;
+  }
+}
+
+@media print {
+  .toggle {
+    &, &::before, &::after {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .toggle {
+    &, &::before, &::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
+
+
+
+
+.site-header { 
+  border-bottom: 1px solid #ccc;
+  padding: .5em 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.site-identity h1 {
+  font-size: 1.5em;
+  margin: .6em 0;
+  display: inline-block;
+}
+
+
+.site-navigation ul, 
+.site-navigation li {
+  margin: 0; 
+  padding: 0;
+}
+
+.site-navigation li {
+  display: inline-block;
+  margin: 1.4em 1em 1em 1em;
+}
+
+/* ------------------------------------------------------ */
+
+/* Скрываем стандартный checkbox */
+.point {
+  display: none;
+}
+
+/* Создаем контейнер для переключателя */
+.switchy {
+  position: relative;
+  display: inline-block;
+  width: 60px; /* Ширина переключателя */
+  height: 34px; /* Высота переключателя */
+}
+
+/* Создаем псевдоэлемент для фона переключателя */
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Серый цвет по умолчанию */
+  transition: .4s; /* Анимация при переключении */
+  border-radius: 34px; /* Скругление углов */
+}
+
+/* Создаем псевдоэлемент для "кругляшка" */
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; /* Высота "кругляшка" */
+  width: 26px; /* Ширина "кругляшка" */
+  left: 4px; /* Отступ слева */
+  bottom: 4px; /* Отступ снизу */
+  background-color: white; /* Цвет "кругляшка" */
+  border-radius: 50%; /* Закругляем "кругляшок" */
+  transition: .4s; /* Анимация при переключении */
+  opacity: .8;
+}
+
+/* Стили в случае, если чекбокс активен (checked) */
+.point:checked + .switch-slider {
+  background-color: #4CAF50; /* Цвет для активного состояния */
+}
+
+.point:checked + .switch-slider:before {
+  transform: translateX(26px); /* Сдвигаем "кругляшок" вправо при активном состоянии */
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  
+  <meta charset="UTF-8">
+  <title>Switch Clicker</title>
+  <link rel="stylesheet" href="style.css">
+
+  <cross-domain-policy>
+    <allow-access-from domain="Images platform" secure="true"/>
+    <allow-http-request-headers-from domain="Images platform" headers="*"/>
+  </cross-domain-policy>
+
+  <site-control permitted-cross-domain-policies="html"/>
+
+  <meta name="color-scheme" content="light dark">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Mobile version -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  
+</head>
+<body class="noselect" style="overflow-y: auto; overflow: scroll; ">
+<!-- partial:index.partial.html -->
+<br>
+<header class="site-header">
+  <div class="site-identity">
+    <h1><a href="menu/index.html">Menu</a></h1>
+  </div>  
+  <nav class="site-navigation">
+    <ul class="nav">
+      <li><a href="crypto/index.html">Crypt</a></li> 
+    </ul>
+  </nav>
+</header>
+<br>
+<!--Cookie#1-->
+
+<div class="cookie1">
+  <h1><a href="#top">Switch clicker</a></h1>
+  <br>
+  
+  <br>
+  
+      <div id="switch" title="cookie-bite" class="switch" onclick="toggleTheme()">
+        <div class="toggle"></div>
+      </div>
+
+  <br>
+  
+  <main>
+    
+    <p id="scoreTxt1">You're in the dark 📍</p>
+    <label class="switchy">
+      <input type="checkbox" role="switch" class="point" value="on" checked/>
+      <span class="switch-slider"></span>
+    </label>
+  </main>
+
+  <br>
+
+  <div class="btns1">
+    <h1><a href="#rows1">Shop</a></h1>
+    <br>
+    
+    <!--Row#1-->
+    <div class="rows1">
+      
+      <!--Item#1-->
+      <div class="items">
+        <img src="assets/icon.png" >
+        <h1>Cat</h1>
+        <p>Clicks for you</p>
+        <br>
+        
+        <h6 id="itemTxt1">You have no cats yet </h6>
+        <button class="btn" id="msg1" onclick="itemBuy1()">35 bulb!</button>
+      </div>
+      
+      <!--Item#2-->
+      <div class="items">
+        <img src="assets/lamp.png" >
+        <h1>lamp</h1>
+        <p>Increases x3 your click</p>
+        <br>
+        
+        <h6 id="itemTxt2">You have no Lamps yet </h6>
+        <button class="btn" id="msg2" onclick="itemBuy2()">75 bulb!</button>
+      </div>
+
+      <!--Item#2-->
+      <div class="items">
+        <img src="assets/sus.png" >
+        <h1>Dog</h1>
+        <p>Buy NPC</p>
+        <br>
+        
+        <h6 id="itemTxt3">You have no Dogs yet </h6>
+        <button class="btn" id="msg3" onclick="itemBuy3()">90 bulb!</button>
+      </div>
+    </div>
+    
+    <div class="btns1">
+      <button class="btn" onclick="reset1()">Save your result</button>
+      <button class="btn" id="upgrade-button" onclick="window.location.reload()">Upgrade</button>
+    </div>
+
+    <br>
+  </div>
+</div>
+<br>
+
+
+<!-- partial -->
+  <script  src="./script.js"></script>
+  
+</body>
+</html>
