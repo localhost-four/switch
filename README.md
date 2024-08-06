@@ -1,4 +1,29 @@
-# Game Jolt API JS Library
+![image](https://github.com/user-attachments/assets/95cc4946-c748-434f-98a2-5a01cdcf8bd4)
+
+# --- Context ---  <br>
+A game about a cat farm that collects switches.
+Your task is to check the switches and hire new workers, depending on the payment of taxes.
+You can also buy points with jobs, they increase the income from one employee and everything else.
+
+The idea for this creation came to me from a meme of a cat playing with a light.
+
+Also, during the passage, you will receive impressions that are temporary, and there are forever, depending on their purpose in the list.
+Progress will be saved depending on your actions.
+
+# Pages 
+- index.html
+- main.html
+- menu/index.html
+- crypto/index.html
+- source/index.html
+
+# 
+
+# Hash <br>
+> The game is under development:  #action #apple #arcade
+
+# Modifications <br>
+> Game Jolt API JS Library
 
 [Game Jolt][1] is a host for **free independently developed computer games**.
 
@@ -12,10 +37,12 @@ And if your game is written in JavaScript, then **this library is able to connec
 > - activity log, parameter fetch and other supporting functions
 > - extremely easy to setup and use
 
-#
+# --- END ---
 
-**Documentation:**  
-<https://www.maus-games.at/files/gamejolt/js/>
+**Documentation:**  <br> 
+<https://www.maus-games.at/files/gamejolt/js/> <br> 
+**WIKI**  <br>
+<https://github.com/localhost-four/switch/wiki> <br>
 
 [1]: https://gamejolt.com
 [2]: https://gamejolt.com/developers/achievements-new/
