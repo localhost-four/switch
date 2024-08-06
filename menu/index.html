@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <link rel="stylesheet" href="style.css">
 
+  <cross-domain-policy>
+    <allow-access-from domain="Images platform" secure="true"/>
+    <allow-http-request-headers-from domain="Images platform" headers="*"/>
+  </cross-domain-policy>
+
+  <site-control permitted-cross-domain-policies="html"/>
+
+  <meta name="color-scheme" content="light dark">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Mobile version -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <script>
+        function toggleActive(e) {
+        const target = e.target;
+
+        if (!target.classList.contains("item") && !target.classList.contains("close")) {
+            return;
+        }
+
+        const activeElements = document.querySelectorAll(".active");
+        activeElements.forEach(function(element) {
+            element.classList.remove("active");
+        });
+
+        if (target.classList.contains("close")) {
+            return;
+        }
+
+        target.classList.add("active");
+        }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <div class="item item--1" onclick="toggleActive(event)">
+        <div class="close"></div>
+        <div class="note">
+            <div class="heading">1. Disclaimer</div>
+            <div class="content">
+                All effects in the game may harm you, check with your doctor.
+                The game has Lighting effects, they are quite strong, so be prepared, I warned you. <br>
+                The author of the game is not responsible for your actions, all faces and actions are fictitious and do not have any meaning. <br>
+            </div>
+        </div>
+        </div>
+        <div class="item item--2" onclick="toggleActive(event)">
+        <div class="close"></div>
+        <div class="note">
+            <div class="heading">2. License</div>
+            <div class="content">
+
+                TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION <br>
+                <br>
+                1. Definitions. <br>
+                <br>
+                "License" shall mean the terms and conditions for use, reproduction,
+                and distribution as defined by Sections 1 through 9 of this document. <br>
+                <br>
+                "Licensor" shall mean the copyright owner or entity authorized by
+                the copyright owner that is granting the License. <br>
+                <br>
+                "Legal Entity" shall mean the union of the acting entity and all
+                other entities that control, are controlled by, or are under common
+                control with that entity. For the purposes of this definition,
+                "control" means (i) the power, direct or indirect, to cause the
+                direction or management of such entity, whether by contract or
+                otherwise, or (ii) ownership of fifty percent (50%) or more of the
+                outstanding shares, or (iii) beneficial ownership of such entity. <br>
+            </div>
+        </div>
+        </div>
+        <div class="item item--3" onclick="toggleActive(event)">
+        <div class="close"></div>
+        <div class="note">
+            <div class="heading">3. Summary</div>
+            <div class="content">
+                At the moment, the build includes the game for all platforms, however, some technologies may not be supported on your device. <br>
+                Don't try to break the game or cause harm, it won't do anything for you <br>
+                Follow the updates and update yourself. Then definitely don't miss out on something new! <br>
+
+            </div>
+        </div>
+        </div>
+        <div class="item item--4" onclick="toggleActive(event)">
+        <div class="close"></div>
+        <div class="note">
+            <div class="heading">4. Pages</div>
+            <div class="content">
+            Possible additions that will always be available by default: <br>
+                <nav>
+                    <li>1 - Main</li> 
+                    <li>2 - About</li>
+                    <li>3 - Other</li>
+                </nav>
+                The game itself with interesting additions and other mechanics.<br>
+                Information about the author and other things and people.<br>
+                Everything else is just additions or corrections.<br>
+            </div>
+        </div>
+        </div>
+        <div class="item item--5" onclick="toggleActive(event)">
+        <div class="close"></div>
+        <div class="note">
+            <div class="heading">5. Home</div>
+            <div class="content">
+                By starting to play this game, you automatically agree with everything.<br>
+                Here are the possible buttons to start the game:<br>
+                <a href="../index.html"> come here </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
