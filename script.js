@@ -29,18 +29,103 @@ function displayMessage(mess) {
       setTimeout(function() {
           message.remove();
       }, 500);
-  }, 2600);
+  }, 600);
   
   var messages = document.querySelectorAll('#ms');
   messages.forEach(function(msg, index) {
-      msg.style.transform = 'translateX(' + (messages.length - index) * 300 + 'px)';
+      msg.style.transform = 'translateX(' + (messages.length - index) * 450 + 'px)';
   });
 }
   
 displayMessage('Created by: staffuser');
 
 
-  //Cookies
+setInterval(function(){
+  if (cooki1 > 600) {
+    const randomDelay = Math.floor(Math.random() * (8000 - 500 + 1)) + 4500; 
+    setTimeout(() => { 
+      const events = [
+        { name: "Payment for water", amount: 300 },
+        { name: "Payment for electricity", amount: 500 },
+        { name: "Payment for housing", amount: 800 },
+      ];
+
+      const randomIndex = Math.floor(Math.random() * events.length);
+      const event = events[randomIndex];
+      setTimeout(() => {  displayMessage(event.name + ': -' + event.amount); }, 800);
+      let currentBuld = parseFloat(cooki1) || 0;
+      let newBuld = currentBuld - event.amount;
+      cooki1 = newBuld;
+
+    }, randomDelay);
+  }
+}, 500)
+
+
+function end(messages, groupIndex) {
+  // Проверка на валидность индекса группы
+  if (groupIndex < 0 || groupIndex >= messages.length) {
+      console.error('Error');
+      return;
+  }
+  
+  // Получаем случайное сообщение из выбранной группы
+  const randomMessage = messages[groupIndex][Math.floor(Math.random() * messages[groupIndex].length)];
+
+  // Создаем элементы модального окна
+  const modalOverlay = document.createElement('div');
+  modalOverlay.style.position = 'fixed';
+  modalOverlay.style.top = '0';
+  modalOverlay.style.left = '0';
+  modalOverlay.style.width = '100%';
+  modalOverlay.style.height = '100%';
+  modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  modalOverlay.style.display = 'flex';
+  modalOverlay.style.alignItems = 'center';
+  modalOverlay.style.justifyContent = 'center';
+
+
+  const modalContent = document.createElement('div');
+  modalContent.style.backgroundColor = 'white';
+  modalContent.style.padding = '20px';
+  modalContent.style.borderRadius = '5px';
+  modalContent.style.textAlign = 'center';
+  
+  const messageElement = document.createElement('p');
+  messageElement.innerText = randomMessage;
+  messageElement.style.color = 'black';
+  
+  const rebootButton = document.createElement('button');
+  rebootButton.innerText = 'Reboot';
+  rebootButton.style.marginTop = '10px';
+  
+  rebootButton.addEventListener('click', function() {
+    localStorage.setItem("buld", 0);
+    document.body.removeChild(modalOverlay);
+    window.location.reload(); 
+  });
+  
+  modalContent.appendChild(messageElement);
+  modalContent.appendChild(rebootButton);
+  modalOverlay.appendChild(modalContent);
+  document.body.appendChild(modalOverlay);
+
+  // Закрытие модального окна при клике на оверлей
+  modalOverlay.addEventListener('click', function(event) {
+      if (event.target === modalOverlay) {
+          document.body.removeChild(modalOverlay);
+      }
+  });
+}
+
+const messages = [
+  ['You bankrupt', 'You gone down', 'Out of money'],
+  ['You became rich', 'Riches everywhere', 'You won'],
+  ['You have identified sanitary violations', 'There are too many workers', 'The neighbors complained about you']
+];
+
+
+//Cookies
 let cookies1 = localStorage.getItem("buld");
 
   //Items
@@ -51,6 +136,7 @@ let bakers1 = localStorage.getItem("lamp");
 //Variables#1//
 var cookiTxt1 = document.getElementById("scoreTxt1");
 var cooki1 = document.getElementById("switch");
+
 
 var itemTxt1 = document.getElementById("itemTxt1");
 var itemTxt2 = document.getElementById("itemTxt2");
@@ -67,7 +153,33 @@ setInterval(function(){
 
 //Functions#1//
   //AddEventListener
+let isEnded = true; // Флаг завершения
 cooki1.addEventListener('click', e => {
+  
+  const intervalId = setInterval(function() {
+    if (isEnded) {
+      clearInterval(intervalId); // Очищаем интервал, если уже завершено    
+
+      if ( cookies1 < 0) {
+        end(messages, 0);
+
+      } else {
+        if ( items1 + microwaves1 + bakers1 > 150000000 ) {
+          end(messages, 2);
+
+        } else {
+          if ( cookies1 > 150000000 ) {
+            end(messages, 1);
+
+          }
+        }
+      }
+      isEnded = false;
+      debugger;
+      return;
+    }
+  }, 1500);
+
   for (let i = 0; i < bakers1 + 1; i++) {
     add1();
   }
@@ -90,7 +202,7 @@ function reset1(){
   bakers1 = 0;
   cookies1 = 0;
   cookiTxt1.innerHTML = "bulbs yummy ⬆";
-  displayMessage('All data has been downloaded');
+  displayMessage('All data has been downloaded'); 
 }
 
   //Items
@@ -117,9 +229,6 @@ function itemBuy1(){
       item1();
     }
     up1.innerHTML = amount1 + ' bulbss!';
-
-    const emojiList = ['Work has begun!', 'The cat is working hard!', 'New employee!']; 
-    displayMessage(emojiList[Math.floor(Math.random() * emojiList.length)]);
 
   } else {
   up1.innerHTML = 35 * (microwaves1+1) + ' bulbss!';
@@ -164,9 +273,6 @@ function itemBuy2(){
       item2();
     }
     up2.innerHTML = amount2 + ' bulbss!';
-
-    const emojiList = ['New Workplace!', 'The world has become brighter!', 'More places!']; 
-    displayMessage(emojiList[Math.floor(Math.random() * emojiList.length)]);
 
   } else {
     up2.innerHTML = 75 * (bakers1+1) + ' bulbss!';
@@ -215,7 +321,7 @@ function itemBuy3(){
     up3.innerHTML = amount2 + ' bulbss!';
 
     const emojiList = ['Specialist updated!', 'Production under control!', 'We are watching you!'];
-    displayMessage(emojiList[Math.floor(Math.random() * emojiList.length)]);
+    setTimeout(function() { displayMessage(emojiList[Math.floor(Math.random() * emojiList.length)]);  }, 500);
 
   } else {
     up3.innerHTML = amount2 + ' bulbss!';
@@ -273,7 +379,7 @@ function toggleTheme() {
 }
 
 document.querySelector('.point').addEventListener("change", function() {
-  displayMessage('Sound accompaniment: ' + this.checked);
+  setTimeout(function() { displayMessage('Sound accompaniment: ' + this.checked); }, 500);
 });
 
 
@@ -391,6 +497,7 @@ window.addEventListener('scroll', function() {
 
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Для мобильных устройств
 });
+
 
 //запрещает перетаскивание и выделение
 

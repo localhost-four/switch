@@ -22,9 +22,8 @@ body{background: #f0f2f5; text-align: center; align-items: center; align-content
   height: 90%;
   
   margin: 0 auto;
-  padding: 5px;
+  padding: 3px;
   
-  color: #141a1f;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -34,7 +33,7 @@ body{background: #f0f2f5; text-align: center; align-items: center; align-content
 .cookie1:hover{
   border-radius: 10px;
   
-  width: 90%;
+  width: 80%;
   
   margin: 1 auto;
   padding: 15px;
@@ -168,7 +167,7 @@ body.dark {
   display: block;
   width: 60px;
   height: 120px;
-  background-color: #ccc;
+  background-color: #77b6db;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
@@ -179,6 +178,14 @@ body.dark {
   box-shadow: 0 4px #666;
   margin-bottom: 20px;
 
+}
+
+.switch:hover{
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: -10px;
+  box-shadow: 0 6px #666;
+  cursor: pointer;
 }
 
 body {
@@ -215,14 +222,14 @@ body {
 .switch::before {
   border-radius: 25px; /* Круглая кнопка */
   position: absolute;
-  top: 10px; /* Отступ сверху */
+  top: 50px; /* Отступ сверху */
   left: 5px; /* Центровка кнопки */
   transition: transform 0.3s; /* Плавный переход */
   
 }
 
 .switch.on::before {
-  transform: translateX(25px); /* Перемещение кнопки при включении */
+  transform: translateX(29px); /* Перемещение кнопки при включении */
 }
 
 div.color-box {
@@ -299,6 +306,14 @@ body.dark .cookie1{
   background: black;
 }
 
+body.dark .btns1 {
+  background: black;
+}
+
+body.dark .switch {
+  background: whitesmoke;
+}
+
 h1 {
   position: sticky;
   top: 21px;
@@ -338,7 +353,10 @@ h1 {
   }
 }
 
-
+main {
+  padding: 10px;
+  display: none;
+}
 
 /* Switch audio */
 body {
@@ -490,7 +508,7 @@ body {
   width: 26px; /* Ширина "кругляшка" */
   left: 4px; /* Отступ слева */
   bottom: 4px; /* Отступ снизу */
-  background-color: white; /* Цвет "кругляшка" */
+  background-color: rgb(255, 255, 255); /* Цвет "кругляшка" */
   border-radius: 50%; /* Закругляем "кругляшок" */
   transition: .4s; /* Анимация при переключении */
   opacity: .8;
@@ -503,4 +521,12 @@ body {
 
 .point:checked + .switch-slider:before {
   transform: translateX(26px); /* Сдвигаем "кругляшок" вправо при активном состоянии */
+}
+
+body.dark .cookie1 {
+  color: #141a1f;
+}
+
+body.dark .switch:active {
+  background-color: #141a1f;
 }

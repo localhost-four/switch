@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <title>Crypto</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <style>
         body {
             display: flex;
@@ -71,7 +72,7 @@
     </div>
     <header class="site-header" style="background-color: blue;">
         <div class="site-identity">
-            <h1><a href="../index.html">Main</a></h1>
+            <h1><a href="../main.html">Main</a></h1>
         </div>  
         <nav class="site-navigation">
             <section id="content">
@@ -90,6 +91,7 @@
 </main>
 
 <script>
+
         const canvas = document.getElementById('chart');
         const ctx = canvas.getContext('2d');
         const values = [];
@@ -127,9 +129,38 @@
             // Суммируем текущее значение с новым значением num
             let newBuld = currentBuld + num;
 
-            // Сохраняем новое значение обратно в localStorage
-            localStorage.setItem("buld", newBuld);
-            document.getElementById("real").innerHTML = "Сheck:" + localStorage.getItem("buld");
+
+            // Счетчик для отслеживания активаций
+            let activationCount = 0;
+            // Получаем все кнопки на странице
+            const buttons = document.querySelectorAll('button');
+
+            // Функция для обработки нажатия на кнопку
+            function handleButtonClick() {
+                activationCount++;
+
+                // Проверяем, если активаций достигло 3
+                if (activationCount >= 9) {
+                    // Делаем все кнопки неактивными
+                    buttons.forEach(button => {
+                        button.disabled = true;
+
+                        // Сохраняем новое значение обратно в localStorage
+                        localStorage.setItem("buld", newBuld);
+                        document.getElementById("real").innerHTML = "Сheck:" + localStorage.getItem("buld");
+                    });
+
+                    // Убираем обработчик событий, чтобы больше не считать нажатия
+                    buttons.forEach(button => {
+                        button.removeEventListener('click', handleButtonClick);
+                    });
+                }
+            }
+
+            // Привязываем обработчик ко всем кнопкам
+            buttons.forEach(button => {
+                button.addEventListener('click', handleButtonClick);
+            });
         }
 
         function trade(action) {
