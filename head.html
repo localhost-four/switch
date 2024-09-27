@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#191919">
-    
-    <title>Clicker Game</title>
-    
+
+    <title>Switch</title>
+
     <script>
         let score = 0;
 
@@ -32,6 +32,10 @@
 
         function updateTitle() {
             document.title = Score: ${score};
+            const siteNameMeta = document.querySelector('meta[property="og:site_name"]');
+            if (siteNameMeta) {
+                siteNameMeta.setAttribute('content', 'Switch Clicker - Score:' + score);
+            }
         }
 
         // Simulate click events for Discord embed interaction
@@ -43,11 +47,17 @@
         document.addEventListener('click', clickHandler);
     </script>
 
-    <meta property="og:title" content="Clicker Game">
+    <style>
+        /* Удалено содержимое body, так как оно больше не требуется */
+    </style>
+
+    <meta property="og:title" content="Switch">
     <meta property="og:description" content="Click to increase your score!">
-    <meta property="og:image" content="https://example.com/image.png">
-    <meta property="og:url" content="https://example.com/clicker">
-    <meta property="og:site_name" content="Clicker Game">
+    <meta property="og:image" content="favicon.ico">
+    <meta property="og:url" content="https://localhost-four.github.io/switch/">
+    <meta property="og:site_name" content="Switch Clicker">
+    <meta name="keywords" content="Use the link for fun!">
+    <meta name="author" content="Staffuser">
 </head>
 
 </html>
