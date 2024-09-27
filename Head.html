@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Clicker Game on Discord Embed">
-    <meta name="clicks" content="0">
-    <meta name="goal" content="100">
-    <style>
-        body {
-            display: none; /* Прячем body */
-        }
-        /* Можно добавить больше стилей для улучшения отображения */
-    </style>
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#191919">
+    
+    <title>Clicker Game</title>
+    
     <script>
-        let clicks = parseInt(document.querySelector('meta[name="clicks"]').getAttribute('content')) || 0;
-        
-        function incrementClicks() {
-            clicks++;
-            document.querySelector('meta[name="clicks"]').setAttribute('content', clicks);
-            checkGoal();
+        let score = 0;
+
+        function clickHandler() {
+            score++;
+            updateMeta();
         }
-        
-        function checkGoal() {
-            const goal = parseInt(document.querySelector('meta[name="goal"]').getAttribute('content'));
-            if (clicks >= goal) {
-                alert('Поздравляем! Вы достигли цели: ' + goal + ' кликов!');
-                // Сброс кликов или другие действия
+
+        function updateMeta() {
+            const scoreMeta = document.querySelector('meta[name="game:score"]');
+            if (scoreMeta) {
+                scoreMeta.setAttribute('content', score);
+            } else {
+                const newScoreMeta = document.createElement('meta');
+                newScoreMeta.setAttribute('name', 'game:score');
+                newScoreMeta.setAttribute('content', score);
+                document.head.appendChild(newScoreMeta);
             }
+            updateTitle();
         }
-        
-        window.onload = function() {
-            // Смена мета-тега для целей
-            document.querySelector('meta[name="description"]').setAttribute('content', 'Клики: ' + clicks);
-        };
+
+        function updateTitle() {
+            document.title = Score: ${score};
+        }
+
+        // Simulate click events for Discord embed interaction
+        setInterval(() => {
+            const clickEvent = new Event('click');
+            document.dispatchEvent(clickEvent);
+        }, 1000);
+
+        document.addEventListener('click', clickHandler);
     </script>
-    <meta name="click-button" content='<button onclick="incrementClicks()">Кликни меня!</button>'>
+
+    <meta property="og:title" content="Clicker Game">
+    <meta property="og:description" content="Click to increase your score!">
+    <meta property="og:image" content="https://example.com/image.png">
+    <meta property="og:url" content="https://example.com/clicker">
+    <meta property="og:site_name" content="Clicker Game">
 </head>
-<body>
-</body>
+
 </html>
