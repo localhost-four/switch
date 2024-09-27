@@ -31,7 +31,7 @@
         }
 
         function updateTitle() {
-            document.title = Score: ${score};
+            document.title = 'Score:' + score;
             const siteNameMeta = document.querySelector('meta[property="og:site_name"]');
             if (siteNameMeta) {
                 siteNameMeta.setAttribute('content', 'Switch Clicker - Score:' + score);
