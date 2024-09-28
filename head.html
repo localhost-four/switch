@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#191919">
+    <meta name="description" content="Switch Clicker 🥪">
+    <meta name="clicks" content="0">
+    <meta name="goal" content="100">
+    <meta http-equiv="refresh" content="1; url=https://localhost-four.github.io/switch/">
 
+    <meta property="og:title" content="Switch">
+    <meta property="og:description" content="Click to increase your score!">
+    <meta property="og:image" content="favicon.ico">
+    <meta property="og:url" content="https://localhost-four.github.io/switch/">
+    <meta property="og:site_name" content="Switch Clicker 💎">
+    <meta name="keywords" content="Use the link for fun!">
+    <meta name="author" content="Staffuser">
+    
     <title>Switch</title>
 
     <script>
@@ -48,16 +60,37 @@
     </script>
 
     <style>
-        /* Удалено содержимое body, так как оно больше не требуется */
+        body {
+            display: none; /* Прячем body */
+        }
+        /* Можно добавить больше стилей для улучшения отображения */
     </style>
+    
+    <script>
+        let clicks = parseInt(document.querySelector('meta[name="clicks"]').getAttribute('content')) || 0;
+        
+        function incrementClicks() {
+            clicks++;
+            document.querySelector('meta[name="clicks"]').setAttribute('content', clicks);
+            checkGoal();
+        }
+        
+        function checkGoal() {
+            const goal = parseInt(document.querySelector('meta[name="goal"]').getAttribute('content'));
+            if (clicks >= goal) {
+                alert('Congratulations! You have reached your goal: ' + goal + ' clicks!');
+                // Сброс кликов или другие действия
+            }
+        }
+        
+        window.onload = function() {
+            // Смена мета-тега для целей
+            document.querySelector('meta[name="description"]').setAttribute('content', 'Клики: ' + clicks);
+        };
+    </script>
 
-    <meta property="og:title" content="Switch">
-    <meta property="og:description" content="Click to increase your score!">
-    <meta property="og:image" content="favicon.ico">
-    <meta property="og:url" content="https://localhost-four.github.io/switch/">
-    <meta property="og:site_name" content="Switch Clicker">
-    <meta name="keywords" content="Use the link for fun!">
-    <meta name="author" content="Staffuser">
+    <meta name="click-button" content='<button onclick="incrementClicks()">click!</button>'>
+    
 </head>
 
 </html>
