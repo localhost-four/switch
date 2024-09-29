@@ -60,7 +60,7 @@
             window.onload = function () {
                 const params = getUrlParams();
                 clicks = params.clicks;
-                if (params.invited_by.length > 0 && !params.invited_by == null) {
+                if (params.invited_by.length > 4) {
                     invitedBy = params.invited_by || getRandomName();
                 }
                 updateMeta();
