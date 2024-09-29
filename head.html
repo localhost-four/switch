@@ -11,77 +11,247 @@
     <meta name="goal" content="100">
     <meta property="og:title" content="Switch">
     <meta property="og:description" content="Click to increase your score!">
-    <meta property="og:image" content="favicon.ico">
+    <meta property="og:image" content="https://raw.githubusercontent.com/localhost-four/switch/refs/heads/main/favicon.ico">
     <meta property="og:url" content="https://localhost-four.github.io/switch/">
-    <!-- <meta property="og:site_name" content="Switch Clicker 💎"> -->
     <meta name="keywords" content="Use the link for fun!">
     <meta name="author" content="Staffuser">
 
     <title>Switch</title>
 
     <script>
-        let clicks = 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageUrls = [
+                'https://raw.githubusercontent.com/localhost-four/switch/refs/heads/main/favicon.ico',
+                'https://raw.githubusercontent.com/localhost-four/switch/refs/heads/main/assets/icon.png',
+            ];
 
-        // Функция для получения параметров из URL
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                clicks: parseInt(params.get('clicks')) || 0,
+            const imageContainer = document.getElementById('image-container');
+
+            imageUrls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Image';
+                img.width = 50;
+                img.height = 50;
+                
+                img.onerror = () => {
+                    console.error(url);
+                    img.alt = 'Error';
+                };
+
+                imageContainer.appendChild(img);
+            });
+
+            let clicks = 0;
+            function getRandomName() {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; // Набор символов
+                let result = '';
+
+                for (let i = 0; i < 6; i++) {
+                    const randomIndex = Math.floor(Math.random() * characters.length); // Случайный индекс
+                    result += characters[randomIndex]; // Добавляем символ к результату
+                }
+
+                return result;
+            }
+
+            let invitedBy = getRandomName();
+            
+            window.onload = function () {
+                const params = getUrlParams();
+                clicks = params.clicks;
+                if (params.invited_by.length > 0 && !params.invited_by == null) {
+                    invitedBy = params.invited_by || getRandomName();
+                }
+                updateMeta();
+                updateReferralLink();
+                setInterval(incrementClicks, 1000); // Увеличиваем счетчик каждую секунду
+                showInviter();
             };
-        }
 
-        function clickHandler() {
-            clicks++;
-            updateMeta();
-        }
-
-        function updateMeta() {
-            document.querySelector('meta[name="clicks"]').setAttribute('content', clicks);
-            updateTitle();
-            checkGoal();
-        }
-
-        function updateTitle() {
-            document.title = 'Score: ' + clicks;
-            const siteNameMeta = document.querySelector('meta[property="og:site_name"]');
-            if (siteNameMeta) {
-                siteNameMeta.setAttribute('content', 'Switch Clicker - Score: ' + clicks);
+            function getUrlParams() {
+                const params = new URLSearchParams(window.location.search);
+                return {
+                    clicks: parseInt(params.get('clicks')) || 0,
+                    invited_by: decodeURIComponent(params.get('invited_by')) || ''
+                };
             }
-        }
 
-        function checkGoal() {
-            const goal = parseInt(document.querySelector('meta[name="goal"]').getAttribute('content'));
-            if (clicks >= goal) {
-                alert('Congratulations! You have reached your goal: ' + goal + ' clicks!');
-                // Здесь можно добавить действия после достижения цели
+            function incrementClicks() {
+                clicks++;
+                updateMeta();
             }
-        }
 
-        window.onload = function() {
-            const params = getUrlParams();
-            clicks = params.clicks;
-            document.querySelector('meta[name="clicks"]').setAttribute('content', clicks);
-            updateTitle();
-        };
+            function updateMeta() {
+                document.querySelector('meta[name="clicks"]').setAttribute('content', clicks);
+                document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://raw.githubusercontent.com/localhost-four/switch/refs/heads/main/favicon.ico'); // Замените на ваш URL для изображения
+                updateTitle();
+                updateReferralLink();
+                saveClicks();
+            }
 
-        // Симуляция кликов для взаимодействия с Discord
-        setInterval(() => {
-            const clickEvent = new Event('click');
-            document.dispatchEvent(clickEvent);
-        }, 1000);
+            function updateTitle() {
+                document.title = 'Score: ' + clicks;
+            }
 
-        document.addEventListener('click', clickHandler);
+            function updateReferralLink() {
+                const referralLink = 'https://localhost-four.github.io/switch/head.html?clicks='+encodeURIComponent(clicks)+'&invited_by='+encodeURIComponent(invitedBy);
+                document.getElementById('referral-link').innerText = referralLink;
+                document.querySelector('meta[property="og:url"]').setAttribute('content', referralLink);
+            }
+
+            function copyReferralLink() {
+                const referralLink = document.getElementById('referral-link').innerText;
+                navigator.clipboard.writeText(referralLink).then(() => {
+                    window.title = 'Referral link copied to clipboard!';
+                });
+            }
+
+            function saveClicks() {
+                // AJAX-запрос для сохранения количества кликов на сервере
+                try {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://localhost-four.github.io/switch/", true);
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xhr.send(JSON.stringify({ clicks: clicks }));
+                } catch (error) { console.info(error); }
+            }
+            console.log('user:' + getRandomName());
+            function showInviter() {
+                if (invitedBy) {
+                    window.title = 'You were invited by:' + invitedBy;
+                }
+            }
+
+            document.addEventListener('click', () => {
+                clicks++;
+                updateMeta();
+            });
+        });
     </script>
 
     <style>
         body {
-            display: none; /* Прячем body */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: black;
         }
-        /* Можно добавить больше стилей для улучшения отображения */
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        #image-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        img {
+            border: 2px solid #ccc;
+        }
+
+        #referral-link {
+            margin-top: 20px;
+            font-size: 1em;
+            word-wrap: break-word;
+        }
+
+        @media screen and (-ms-high-contrast: active),
+        screen and (forced-colors: active) {
+        .root-299 {
+            border: 1px solid turquoise;
+            opacity: 0;
+        }
+        }
+
+        .centered-div {
+        background: white;
+        border: 2px #eee;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        #snackbar {
+        user-select: none;
+        color: var(--clr-snack-txt);
+        background: var(--clr-snack);
+        border-radius: .7em;
+        width: fit-content;
+        max-width: 70svw;
+        margin-inline: auto;
+        padding-inline: 2ch;
+        font-size: 1.8rem;
+        text-align: center;
+        position: relative;
+        transition: filter calc(var(--time) / 3) ease-in-out;
+        animation-duration: var(--time);
+        animation-timing-function: ease-in-out;
+        }
+        #snackbar span {
+        text-align: center;
+        }
+        #cancel {
+        border: 2px solid transparent;
+        border-radius: .5rem;
+        cursor: pointer;
+     
+        transition: filter calc(var(--time) / 3) ease-in-out;
+        }
+        #cancel:hover, #cancel:focus-within {
+        filter: invert(100%);
+        }
+        #snackbar.show {
+        margin-top: calc(-1 * var(--snack-offset));
+        animation-name: fadein;
+        }
+        #snackbar.goout {
+        margin-top: 0px;
+        animation-name: fadeout;
+        }
+        #snackbar.drop {
+        animation-name: drop;
+        animation-delay: var(--time);
+        }
+        @keyframes fadein {
+        from {margin-top: 0px;} 
+        to {margin-top: calc(-1 * var(--snack-offset));}
+        }
+        @keyframes fadeout {
+        from { margin-top: calc(-1 * var(--snack-offset)); }
+        to {margin-top: 0px;}
+        }
+        @keyframes drop {
+        from { display: initial; } to { display: none; }
+        }
+        @media(prefers-color-scheme: dark) {
+        :root {
+        --clr-bg: #8c2;    
+        --clr-snack: #ccc;   
+        --clr-snack-txt: #323;   
+        }
+        }
     </style>
 
-    <meta name="click-button" content='<button onclick="incrementClicks()">Click!</button>'>
-    <meta http-equiv="refresh" content="6; url=https://localhost-four.github.io/switch/">
 </head>
+
+<body>
+    <main id=snackbar>
+        <div aria-hidden="true">
+            <div id="image-container"></div>
+            <div id="referral-link"></div>
+            <button id="cancel" onclick="copyReferralLink()">Click!</button>
+        </div>
+    </main>
+</body>
 
 </html>
